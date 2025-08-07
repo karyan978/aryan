@@ -395,7 +395,7 @@
                         <hr class="mb-4">
                         <div class="flex flex-wrap flex-row gap-10">
                             <div class="w-20 h-20 flex items-center justify-center bg-gray-200 rounded-full mb-4">
-                                <img src="asset/mysql.png" alt="" class="w-12 h-12 ">
+                                <a href="https://www.mysql.com/"><img src="asset/mysql.png" alt="" class="w-12 h-12 "></a>
                             </div>
                         </div>
 
@@ -413,13 +413,13 @@
                         <hr class="mb-4">
                         <div class="flex flex-wrap flex-row gap-10">
                             <div class="w-20 h-20 flex items-center justify-center bg-gray-900 rounded-full mb-4">
-                                <i class="ri-github-line text-5xl text-white"></i>
+                                <a href="https://github.com/karyan978"><i class="ri-github-line text-5xl text-white"></i></a>
                             </div>
                             <div class="w-20 h-20 flex items-center justify-center bg-gray-900 rounded-full mb-4">
-                                <img src="asset/vsCode.png" alt="" class="w-12 h-12 ">
+                                <a href="https://code.visualstudio.com/"><img src="asset/vsCode.png" alt="" class="w-12 h-12 "></a>
                             </div>
                             <div class="w-20 h-20 flex items-center justify-center bg-yellow-300 rounded-full mb-4">
-                                <img src="asset/docker.png" alt="" class="w-12 h-12 ">
+                                <a href="https://www.docker.com/"><img src="asset/docker.png" alt="" class="w-12 h-12 "></a>
                             </div>
                         </div>
                     </div>
@@ -500,7 +500,7 @@
                             </div>
                         </div>
                     </div>
-
+<!-- 
                     <div
                         class="border border-white backdrop-blur-xl bg-white/5 rounded-lg overflow-hidden shadow-md card-hover3">
                         <div class="h-48 overflow-hidden">
@@ -524,7 +524,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div
                         class="border border-white backdrop-blur-xl bg-white/5 rounded-lg overflow-hidden shadow-md card-hover4">
@@ -787,16 +787,16 @@
                             <h3 class="text-xl font-semibold text-gray-800 mb-6">Send Me a Message</h3>
                             <form id="contactForm">
                                 <div class="mb-4">
-                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1" name="name">Your
                                         Name</label>
-                                    <input type="text" id="name" name="name"
+                                    <input type="text" id="name" name="user_name"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                         placeholder="Aryan Kumar" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your
                                         Email</label>
-                                    <input type="email" id="email" name="email"
+                                    <input type="email" id="email" name="user_email"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                         placeholder="Aryan@example.com" required>
                                 </div>
@@ -915,9 +915,30 @@
             <i class="ri-arrow-up-line ri-lg"></i>
         </button>
 
+        <!-- sucess-model -->
+         <div id="successModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+        <div class="bg-[#151515] p-8 rounded-lg shadow-lg z-10 max-w-md w-full mx-4">
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center">
+                    <i class="ri-check-line ri-2x text-white"></i>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-center mb-2">Message Sent!</h3>
+            <p class="text-gray-300 text-center mb-6">
+                Thank you for reaching out. I'll get back to you as soon as possible.
+            </p>
+            <button id="closeModal"
+                class="gradient-bg text-white px-6 py-3 rounded-button font-medium transition-all duration-300 w-full !rounded-button cursor-pointer">
+                Close
+            </button>
+        </div>
+    </div>
+    <!-- sucess-model -->
+
         <!-- Success Modal -->
         <div id="successModal"
-            class="fixed inset-0 flex items-center justify-center z-50 invisible opacity-0 transition-all duration-300">
+            class="fixed inset-0 flex items-center justify-center z-50 bg-white/10 backdrop-blur-md opacity-0 transition-all duration-300">
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
             <div
                 class="bg-white rounded-lg p-8 max-w-md w-full relative z-10 transform scale-95 transition-all duration-300">
@@ -930,12 +951,42 @@
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="ri-check-line ri-2x text-green-500"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Message Sent!</h3>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Message Sent!</h3>
                     <p class="text-gray-600">Thank you for reaching out. I'll get back to you as soon as possible.</p>
                 </div>
             </div>
         </div>
     </div>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+  <script>
+    (function (){
+    emailjs.init("FWjOQevFozB7_J1lb");
+}) ();
+
+
+document.getElementById("contactForm").addEventListener("submit",function (e){
+    e.preventDefault();
+
+    const form = this;
+    emailjs.sendForm("service_hu6rzzf","template_jv8uoss", form)
+    .then( function (){
+        document.getElementById("successModal").classList.remove("hidden");
+        document.getElementById("contactForm").reset();
+        form.reset();
+
+    }, (error) => {
+        console.log("Faild...",error);
+        alert("Failed to send message. Please try again.");
+    });
+
+    document.getElementById("closeModal").addEventListener("click",function(){
+        document.getElementById("successModal").classList.add("hidden");
+    });
+});
+
+  </script>
 
     <!-- <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
     <script src="https://unpkg.com/gsap@3/dist/ScrollSmoother.min.js"></script> -->

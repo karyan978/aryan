@@ -514,3 +514,36 @@ const scroll = new LocomotiveScroll({
     el: document.querySelector('[data-scroll-container]'),
     smooth: true
 });
+
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = this;
+
+    emailjs.sendForm("service_hu6rzzf", "template_jv8uoss", form)
+        .then(function () {
+            form.reset();
+            showModal(); // Show the success modal
+        }, function (error) {
+            console.log("Failed...", error);
+            alert("Failed to send message. Please try again.");
+        });
+});
+
+// Function to show the modal
+function showModal() {
+    document.getElementById("successModal").style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+    document.getElementById("successModal").style.display = "none";
+}
+
+// Optional: close when clicking outside the modal
+window.onclick = function(event) {
+    const modal = document.getElementById("successModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
